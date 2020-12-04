@@ -17,7 +17,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 ```
 
 ### Otodom Scraper - OOP
-Here concept is based on three classes:
+Here the concept is based on three classes:
 1. **DriverSettings** - here we store every option that selenium driver needs for proper work.
       
       *binary_location* - variable that stores path to your browser exe file. In my case it is brave.exe
@@ -36,9 +36,28 @@ Here concept is based on three classes:
       
       *finish_condition* - it tells us whether the apartment is suitable for living, and in which condition it is. There are three options:
       
-            1) For living
-            2) To finish
-            3) For renovation
+            For living
+            To finish
+            For renovation
        
-       
-      
+3. **OtodomScraper** - main class in the project, it has webdriver chrome options object, DriverSettings and FlatOffer objects in it. About class an its methods you can read in docstrings.
+
+
+### Otodom Scraper - not OOP
+Basicly everything is like in description above, but without classes and methods etc.
+
+## Working schema ##
+
+Schema is simple:
+1. Create seleniu driver object with custom options.
+2. "Feed" driver with otodom URL with filters or not your choice, but it must be after search button click.
+3. Close cookies banner because it covers next-page button.
+4. Get page soup with beautifulsoup.
+5. Start loop through all article elements on site - there are sotred all offers.
+6. Check if offer id is in id list if yes then print doubled offer else add id to list.
+7. First 5 attributes are gathered from main page (price, room number etc.).
+8. Open new tab.
+9. Switch driver to it.
+10. Try to get other attributes, if there was no problem break while loop else refresh until offer shows up or delete last row and close the tab.
+11. After iterate through all offert on page click next-page button.
+12. Go to step 5.
